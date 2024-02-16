@@ -81,9 +81,8 @@ export const defaultLoadersSync: LoadersSync = Object.freeze({
 
 const dynamicImport = async (id: string) => {
     try {
-        // to preserve CJS output but keep dynamic import as is
-        // https://github.com/microsoft/TypeScript/issues/43329#issuecomment-922544562
-        const mod = await eval(`import('${id}')`);
+        // @ts-expect-error typescript is nice
+        const mod = await TS_IMPORT(id);
 
         return mod.default;
     } catch (e) {

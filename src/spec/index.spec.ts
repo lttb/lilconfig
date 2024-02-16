@@ -5,6 +5,9 @@ import {lilconfig, lilconfigSync, LoaderSync, TransformSync} from '..';
 import {cosmiconfig, cosmiconfigSync} from 'cosmiconfig';
 import {transpileModule} from 'typescript';
 
+// @ts-expect-error kek
+global.TS_IMPORT = (id: string) => eval(`import("${id}")`);
+
 /**
  * Mocking fs solely to test the root directory filepath
  */
@@ -460,12 +463,10 @@ describe('options', () => {
             });
 
             it('async', async () => {
-                const result = await lilconfig('test-app').load(
-                    relativeFilepath,
-                );
-                const ccResult = await cosmiconfig('test-app').load(
-                    relativeFilepath,
-                );
+                const result =
+                    await lilconfig('test-app').load(relativeFilepath);
+                const ccResult =
+                    await cosmiconfig('test-app').load(relativeFilepath);
 
                 const expected = {
                     config: undefined,
@@ -1571,9 +1572,8 @@ describe('lilconfig', () => {
             const filepath = path.join(dirname, 'test-app.js');
             const relativeFilepath = filepath.slice(process.cwd().length + 1);
             const result = await lilconfig('test-app').load(relativeFilepath);
-            const ccResult = await cosmiconfig('test-app').load(
-                relativeFilepath,
-            );
+            const ccResult =
+                await cosmiconfig('test-app').load(relativeFilepath);
 
             const expected = {
                 config: {jsTest: true},
@@ -1588,9 +1588,8 @@ describe('lilconfig', () => {
             const filepath = path.join(dirname, 'test-app.cjs');
             const relativeFilepath = filepath.slice(process.cwd().length + 1);
             const result = await lilconfig('test-app').load(relativeFilepath);
-            const ccResult = await cosmiconfig('test-app').load(
-                relativeFilepath,
-            );
+            const ccResult =
+                await cosmiconfig('test-app').load(relativeFilepath);
 
             const expected = {
                 config: {jsTest: true},
@@ -1605,9 +1604,8 @@ describe('lilconfig', () => {
             const filepath = path.join(dirname, 'test-app.json');
             const relativeFilepath = filepath.slice(process.cwd().length + 1);
             const result = await lilconfig('test-app').load(relativeFilepath);
-            const ccResult = await cosmiconfig('test-app').load(
-                relativeFilepath,
-            );
+            const ccResult =
+                await cosmiconfig('test-app').load(relativeFilepath);
 
             const expected = {
                 config: {jsonTest: true},
@@ -1623,9 +1621,8 @@ describe('lilconfig', () => {
             const relativeFilepath = filepath.slice(process.cwd().length + 1);
 
             const result = await lilconfig('test-app').load(relativeFilepath);
-            const ccResult = await cosmiconfig('test-app').load(
-                relativeFilepath,
-            );
+            const ccResult =
+                await cosmiconfig('test-app').load(relativeFilepath);
 
             const expected = {
                 config: {noExtJsonFile: true},

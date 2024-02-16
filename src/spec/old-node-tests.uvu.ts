@@ -1,9 +1,12 @@
 import * as uvu from 'uvu';
 import * as assert from 'assert';
 import * as path from 'path';
-import {lilconfig, lilconfigSync, LoaderSync, TransformSync} from '..';
+import {lilconfig, lilconfigSync, LoaderSync} from '..';
 import {cosmiconfig, cosmiconfigSync} from 'cosmiconfig';
 import {transpileModule} from 'typescript';
+
+// @ts-expect-error kek
+global.TS_IMPORT = (id: string) => eval(`import("${id}")`);
 
 const dirname = path.join(__dirname, 'load');
 const tsLoader: LoaderSync = (_, content) => {

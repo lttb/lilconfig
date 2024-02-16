@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "allowJs": true,
+        "allowJs": false,
         "alwaysStrict": true,
-        "esModuleInterop": false,
+        "esModuleInterop": true,
         "lib": ["es2018"],
         "noFallthroughCasesInSwitch": true,
         "noUnusedParameters": true,
